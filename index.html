@@ -67,10 +67,10 @@ p { margin: 0 0 1em; }
 .hero-strip div + div { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.18); }
 .hero-strip b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; }
 .hero-strip span { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: #b9c9b4; }
-.rise { opacity: 0; transform: translateY(18px); animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) backwards; }
 .rise.d1 { animation-delay: .08s } .rise.d2 { animation-delay: .2s } .rise.d3 { animation-delay: .34s } .rise.d4 { animation-delay: .48s } .rise.d5 { animation-delay: .62s }
-@keyframes rise { to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .rise { animation: none; opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) { .rise { animation: none; } html { scroll-behavior: auto; } }
 
 /* ---------- sections ---------- */
 section { padding: 104px 0; border-bottom: 1px solid var(--hairline); }
