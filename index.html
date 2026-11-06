@@ -22,7 +22,7 @@
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { margin: 0; overflow-x: clip; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
 p { margin: 0 0 1em; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
@@ -51,9 +51,9 @@ p { margin: 0 0 1em; }
 .hero::before { content: ""; position: absolute; inset: 0; background:
   radial-gradient(900px 500px at 85% -10%, rgba(165,209,41,.16), transparent 60%),
   repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 112px); pointer-events: none; }
-.hero .wrap { position: relative; padding-top: 92px; padding-bottom: 0; }
+.hero .wrap { position: relative; padding-top: 68px; padding-bottom: 0; }
 .hero .mono { color: var(--lime); }
-.hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3.4rem, 10.5vw, 9rem); line-height: .92; letter-spacing: -.035em; margin: 26px 0 0; }
+.hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3.2rem, 9.6vw, 8.2rem); line-height: .92; letter-spacing: -.035em; margin: 26px 0 0; }
 .hero h1 em { font-style: italic; color: var(--lime); font-weight: 400; }
 .hero h1 span { display: block; }
 .hero-sub { max-width: 640px; font-size: 1.28rem; line-height: 1.5; margin: 38px 0 0; color: #e4eadc; }
@@ -62,7 +62,7 @@ p { margin: 0 0 1em; }
 .btn { font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; padding: 14px 20px; border: 1px solid rgba(255,255,255,.35); color: var(--paper); background: transparent; cursor: pointer; }
 .btn.solid { background: var(--lime); color: var(--forest-deep); border-color: var(--lime); font-weight: 500; }
 .btn:hover { border-color: var(--lime); }
-.hero-strip { margin-top: 76px; border-top: 1px solid rgba(255,255,255,.18); display: grid; grid-template-columns: repeat(4, 1fr); }
+.hero-strip { margin-top: 52px; border-top: 1px solid rgba(255,255,255,.18); display: grid; grid-template-columns: repeat(4, 1fr); }
 .hero-strip div { padding: 22px 20px 26px 0; }
 .hero-strip div + div { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.18); }
 .hero-strip b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; }
@@ -239,7 +239,7 @@ footer .label { color: var(--lime); }
 .qr h2 { font-size: clamp(2.4rem, 5vw, 4.4rem); max-width: none; }
 .qr h2 em { color: var(--lime); }
 .qr .url { font-family: var(--mono); font-size: clamp(.8rem, 1.5vw, 1.05rem); color: var(--lime); margin: 26px 0 0; word-break: break-all; }
-.qr p.small { margin-top: 18px; }
+.qr p.small { margin-top: 18px; color: #c4d1bd; font-size: 1.05rem; }
 .qr-x { position: absolute; top: 20px; right: 22px; background: none; border: 1px solid rgba(255,255,255,.35); color: var(--paper); font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; }
 .fab { position: fixed; right: 18px; bottom: 18px; z-index: 55; width: 54px; height: 54px; border-radius: 50%; border: 0; background: var(--lime); color: var(--forest-deep); font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .08em; cursor: pointer; box-shadow: 0 6px 22px rgba(8,42,24,.3); }
 .fab:hover { transform: translateY(-2px); }
@@ -560,7 +560,7 @@ footer .label { color: var(--lime); }
     </div>
     <div class="rounds">
       <div class="round"><b>Round 0</b><span class="mono">Sep 9 – Oct 15</span>Early launch for the year-long courses and advisory.</div>
-      <div class="round now"><b>Round 1</b><span class="mono">Oct 19 – Dec 18 · we are here</span>Full portfolio live. Midpoint stepback Nov 17–18.</div>
+      <div class="round now"><b>Round 1</b><span class="mono">Oct 19 – Dec 18<br>▸ we are here</span>Full portfolio live. Midpoint stepback Nov 17–18.</div>
       <div class="round"><b>Round 2</b><span class="mono">Jan 11 – Mar 12</span>Results feed the first experience-design workshop.</div>
       <div class="round"><b>Round 3</b><span class="mono">Mar 15 – May 7</span>AP readiness, deliverable quality, advisory interviews.</div>
       <div class="round"><b>Round 4</b><span class="mono">May 10 – Jun 11</span>Synthesis. What changed in the model, what's next.</div>
