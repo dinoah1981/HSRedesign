@@ -124,19 +124,37 @@ h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; line-heigh
 .split li { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid currentColor; opacity: .9; }
 
 /* schedule */
-.sched-scroll { overflow-x: auto; margin: 0 0 14px; }
-.sched { display: grid; grid-template-columns: 78px repeat(5, minmax(112px, 1fr)); gap: 4px; min-width: 680px; font-size: .9rem; }
-.sched > div { padding: 11px 12px; line-height: 1.25; }
-.sched .h { font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--slate); padding: 6px 12px; }
-.sched .t { font-family: var(--mono); font-size: .7rem; color: var(--slate); padding-left: 0; display: flex; align-items: center; }
-.sched .adv { background: #dfe6da; color: var(--forest); }
-.sched .cls { background: var(--forest); color: var(--paper); }
-.sched .lun { background: var(--mist); color: var(--slate); grid-column: span 4; text-align: center; }
-.sched .blk { background: var(--lime); color: var(--forest-deep); font-weight: 500; }
-.sched .pd { background: #fff; border: 1px dashed #c9c5b6; color: var(--slate); }
-.sched .tall { grid-row: span 3; display: flex; align-items: center; }
-.legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: .86rem; color: var(--slate); }
+.sched-card { background: #fff; border: 1px solid var(--hairline); padding: 24px 24px 26px; margin-bottom: 20px; }
+.sched-card.chosen { border: 2px solid var(--forest); }
+.sched-title { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+.sched-card h3 { margin: 0 0 4px; }
+.sched-title h3 { margin: 0; font-size: 1.7rem; }
+.chosen-badge { font-family: var(--mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; background: var(--lime); color: var(--forest-deep); padding: 5px 10px; font-weight: 500; }
+.sched-scroll { overflow-x: auto; }
+table.sched { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 3px; font-size: .9rem; }
+table.sched th { font-family: var(--mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--slate); font-weight: 500; padding: 6px; }
+table.sched td { padding: 10px 8px; text-align: center; line-height: 1.25; }
+table.sched .time { font-family: var(--mono); font-size: .68rem; text-align: left; white-space: nowrap; color: var(--slate); width: 108px; padding-left: 0; letter-spacing: 0; text-transform: none; }
+table.sched .slot { font-family: var(--mono); font-size: .68rem; color: var(--forest); width: 44px; }
+.cell.core { background: var(--forest); color: var(--paper); font-weight: 500; }
+.cell.advisory { background: #dfe6da; color: var(--forest); font-style: italic; }
+.cell.lunch { background: var(--mist); color: var(--slate); font-size: .8rem; }
+.cell.plan { background: #fff; outline: 1px dashed #c9c5b6; outline-offset: -1px; color: var(--slate); font-style: italic; }
+.cell.block-a { background: #a5d129; color: var(--forest-deep); font-weight: 500; }
+.cell.block-b { background: #f1dd8b; color: #3d3200; font-weight: 500; }
+.cell.block-c { background: #9fd6c3; color: #0b3a2c; font-weight: 500; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .86rem; color: var(--slate); margin-top: 14px; }
 .legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+.prep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.prep-block h4 { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; margin: 0 0 4px; }
+.prep-desc { font-size: .9rem; color: var(--slate); margin: 0 0 12px; max-width: 60ch; }
+table.prep { width: 100%; border-collapse: separate; border-spacing: 2px; font-size: .8rem; }
+table.prep th { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--slate); font-weight: 500; padding: 4px; }
+table.prep td { text-align: center; padding: 5px 4px; background: var(--mist); height: 28px; }
+table.prep .slot { background: none; text-align: left; font-family: var(--mono); font-size: .64rem; color: var(--slate); width: 52px; }
+table.prep .prep-min { background: var(--lime-soft); color: var(--forest); font-weight: 600; }
+.alts { margin-top: 26px; }
+.alts > summary { font-size: .74rem; margin-bottom: 14px; }
 .note { border-left: 3px solid var(--lime); padding: 4px 0 4px 20px; margin: 44px 0 0; max-width: 70ch; }
 .note b { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; display: block; margin-bottom: 4px; }
 .must { list-style: none; margin: 0; padding: 0; }
@@ -162,6 +180,10 @@ details li { margin-bottom: 5px; }
 .passport b { font-family: var(--serif); font-weight: 400; font-size: clamp(3.4rem, 8vw, 6rem); line-height: .9; display: block; color: var(--forest); letter-spacing: -.03em; }
 .passport strong { display: block; margin-top: 10px; font-weight: 600; }
 .passport span { font-size: .92rem; color: var(--slate); }
+.choice { background: var(--lime-soft); border-left: 4px solid var(--lime); padding: 22px 26px 24px; margin: 0 0 20px; }
+.choice .mono { color: var(--forest); display: block; margin-bottom: 8px; }
+.choice p { margin: 0; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.35; max-width: 60ch; }
+.choice b { font-weight: 600; color: var(--forest); }
 .tier { background: #fff; border: 1px solid var(--hairline); padding: 28px 26px 30px; }
 .tier .label { display: flex; justify-content: space-between; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
@@ -252,7 +274,8 @@ footer .label { color: var(--lime); }
   .sec-head, .comp, .bq, .mission { grid-template-columns: 1fr; gap: 14px; }
   .sec-num { display: inline-block; width: max-content; padding-right: 24px; }
   .indent { margin-left: 0; }
-  .c2, .c3, .split, .also, footer .cols { grid-template-columns: 1fr; }
+  .c2, .c3, .split, .also, footer .cols, .prep-grid { grid-template-columns: 1fr; }
+  .sched-card { padding: 18px 16px 20px; }
   .stats { grid-template-columns: 1fr 1fr; }
   .stats div { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--hairline); }
   .stats div:first-child { grid-column: span 2; border-top: 0; }
@@ -289,7 +312,7 @@ footer .label { color: var(--lime); }
       <a href="#why">Why</a>
       <a href="#model">The model</a>
       <a href="#competencies">Competencies</a>
-      <a href="#badges">Badges</a>
+      <a href="#badges">Badges (example)</a>
       <a href="#pilots">Pilots</a>
       <a href="#ai">AI</a>
       <a href="#questions">Open questions</a>
@@ -329,14 +352,14 @@ footer .label { color: var(--lime); }
       </div>
     </div>
     <div class="stats">
-      <div><b>~480</b><span>students in grades 9–12</span></div>
+      <div><b>540</b><span>students: 510 in the high school, 30 in CSH_Alt</span></div>
       <div><b>95%</b><span>Black and Latino</span></div>
       <div><b>86%</b><span>qualify for free or reduced-price lunch</span></div>
       <div><b>22%</b><span>students with disabilities</span></div>
       <div><b>14%</b><span>multilingual learners</span></div>
     </div>
     <div class="cols c3">
-      <div class="rule-top"><span class="label">Our footprint</span><p class="small">One high school and, as of this fall, <strong>CSH_Alt</strong>: an alternative program for about 30 over-age, under-credited young adults (roughly 17–21). It doubles as a testing ground for parts of the larger redesign. Our 6–8 middle school opens next fall.</p></div>
+      <div class="rule-top"><span class="label">Our footprint</span><p class="small">One high school and, as of this fall, <strong>CSH_Alt</strong>: an alternative program for 30 over-age, under-credited young adults (roughly 17–21). It doubles as a testing ground for parts of the larger redesign. Our 6–8 middle school opens next fall.</p></div>
       <div class="rule-top"><span class="label">Who is doing the work</span><p class="small">Mostly us. A small team of leaders (Executive Director, Managing Director of Schools, CS Department Chair) and about ten teachers is running every pilot inside a normal school year.</p></div>
       <div class="rule-top"><span class="label">Who we are working with</span><p class="small">Transcend is our design partner for the pilot year, and we are one of several high schools in a small Design Commons testing similar bets in different ways.</p></div>
     </div>
@@ -399,24 +422,29 @@ footer .label { color: var(--lime); }
       </div>
     </div>
 
-    <span class="label">The week · 2-2-3 with morning advisory</span>
-    <div class="sched-scroll">
-      <div class="sched">
-        <div class="h"></div><div class="h">Mon</div><div class="h">Tue</div><div class="h">Wed</div><div class="h">Thu</div><div class="h">Fri</div>
-        <div class="t">9:00</div><div class="adv">Advisory</div><div class="adv">Advisory</div><div class="adv">Advisory</div><div class="adv">Advisory</div><div class="adv">Advisory</div>
-        <div class="t">9:33</div><div class="cls">Class 1</div><div class="cls">Class 4</div><div class="cls">Class 2</div><div class="cls">Class 5</div><div class="cls">Class 3</div>
-        <div class="t">10:36</div><div class="cls">Class 2</div><div class="cls">Class 5</div><div class="cls">Class 3</div><div class="cls">Class 1</div><div class="cls">Class 4</div>
-        <div class="t">11:39</div><div class="cls">Class 3</div><div class="cls">Class 1</div><div class="cls">Class 4</div><div class="cls">Class 2</div><div class="cls">Class 5</div>
-        <div class="t">12:42</div><div class="lun">Lunch and open hours, rotating by grade</div><div class="pd tall">Staff meetings and professional development</div>
-        <div class="t">1:58</div><div class="blk">Block A</div><div class="blk">Block A</div><div class="blk">Block B</div><div class="blk">Block B</div>
-        <div class="t">3:11</div><div class="blk">Block C</div><div class="blk">Block C</div><div class="pd">Teacher planning</div><div class="blk">Block C</div>
+    <span class="label">The schedules · what we chose and what we considered</span>
+    <div class="sched-card chosen">
+      <div class="sched-title"><h3>2-2-3 with Morning Advisory</h3><span class="chosen-badge">★ The one we chose</span></div>
+      <div class="sched-scroll"><table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00–9:30</td><td class="slot">Adv</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td></tr><tr><td class="time">9:33–10:33</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td></tr><tr><td class="time">10:36–11:36</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td></tr><tr><td class="time">11:39–12:39</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td></tr><tr><td class="time">12:42–1:17</td><td class="slot">L/O</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Staff lunch</td></tr><tr><td class="time">1:20–1:55</td><td class="slot">L/O</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">1:58–3:08</td><td class="slot">A/B</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-b">Block B</td><td class="cell block-b">Block B</td><td class="cell"></td></tr><tr><td class="time">3:11–4:20</td><td class="slot">B/C</td><td class="cell block-c">Block C</td><td class="cell block-c">Block C</td><td class="cell plan">Planning</td><td class="cell block-c">Block C</td><td class="cell"></td></tr></tbody></table></div>
+      <div class="legend">
+        <span><i style="background:#dfe6da"></i>Daily advisory, run as one-on-one conferences</span>
+        <span><i style="background:var(--forest)"></i>Academic core: five classes, three hours each a week</span>
+        <span><i style="background:#a5d129"></i>Block A</span><span><i style="background:#f1dd8b"></i>Block B</span><span><i style="background:#9fd6c3"></i>Block C</span>
+        <span>A and B meet twice a week, C three times. Wednesday afternoon is teacher planning. Friday afternoon is meetings and PD.</span>
       </div>
+      <span class="label" style="margin-top:30px">How teacher prep could fall · still an open faculty decision</span>
+      <div class="prep-grid">
+        <div class="prep-block"><h4>Prep option 1: distributed</h4><p class="prep-desc">Preps spread across multiple days. No late arrival. Department meetings happen during planning time on Wednesday or Friday.</p><table class="prep"><thead><tr><th></th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="slot">1</td><td></td><td></td><td class="prep-min">60</td><td></td><td></td></tr><tr><td class="slot">2</td><td></td><td class="prep-min">60</td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">3</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="slot">Lunch</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td></tr><tr><td class="slot">Lunch</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="slot">A</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td></td></tr><tr><td class="slot">B</td><td></td><td></td><td class="prep-min">75</td><td></td><td></td></tr></tbody></table></div>
+        <div class="prep-block"><h4>Prep option 2: concentrated</h4><p class="prep-desc">Preps stacked on a single morning. The whole department arrives at 10:30 that day, uses the free morning for its meeting, and teaches straight through the rest of the week.</p><table class="prep"><thead><tr><th></th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="slot">1</td><td></td><td></td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">2</td><td></td><td></td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">3</td><td></td><td></td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">Lunch</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td></tr><tr><td class="slot">Lunch</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="slot">A</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td></td></tr><tr><td class="slot">B</td><td></td><td></td><td class="prep-min">75</td><td></td><td></td></tr></tbody></table></div>
+      </div>
+      <p class="small" style="margin:10px 0 0">Numbers are minutes of prep in that slot.</p>
     </div>
-    <div class="legend">
-      <span><i style="background:#dfe6da"></i>Daily advisory, run as one-on-one conferences</span>
-      <span><i style="background:var(--forest)"></i>Academic core</span>
-      <span><i style="background:var(--lime)"></i>Experience blocks (A and B meet twice a week, C three times)</span>
-    </div>
+    <details class="alts" open>
+      <summary>Three schedules we considered and set aside</summary>
+      <div class="sched-card"><h3>2-2-3 without morning advisory</h3><p class="prep-desc">The same blocks, but advisory shares the lunch band instead of opening the day.</p><div class="sched-scroll"><table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00–10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td></tr><tr><td class="time">10:05–11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td></tr><tr><td class="time">11:10–12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td></tr><tr><td class="time">12:15–12:50</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Staff lunch</td></tr><tr><td class="time">12:55–1:30</td><td class="slot">L/A</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">1:30–2:45</td><td class="slot">A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-b">Block B</td><td class="cell block-b">Block B</td><td class="cell"></td></tr><tr><td class="time">2:50–4:05</td><td class="slot">B</td><td class="cell block-c">Block C</td><td class="cell block-c">Block C</td><td class="cell plan">Planning</td><td class="cell block-c">Block C</td><td class="cell"></td></tr></tbody></table></div></div>
+      <div class="sched-card"><h3>4-3</h3><p class="prep-desc">Two experience blocks instead of three: A meets four times a week, B three.</p><div class="sched-scroll"><table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00–10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td></tr><tr><td class="time">10:05–11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td></tr><tr><td class="time">11:10–12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td></tr><tr><td class="time">12:15–12:50</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Circle</td></tr><tr><td class="time">12:55–1:30</td><td class="slot">L/A</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">1:30–2:45</td><td class="slot">A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell"></td></tr><tr><td class="time">2:50–4:05</td><td class="slot">B</td><td class="cell block-b">Block B</td><td class="cell block-b">Block B</td><td class="cell plan">Planning</td><td class="cell block-b">Block B</td><td class="cell"></td></tr></tbody></table></div></div>
+      <div class="sched-card"><h3>Alternate Day</h3><p class="prep-desc">Academics straight through Monday to Wednesday, long experience blocks on Thursday and Friday.</p><div class="sched-scroll"><table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00–10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell block-a">Block A (9-10)</td><td class="cell block-a">Block A (9-10)</td></tr><tr><td class="time">10:05–11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell block-b">Block B (10:05-11:05)</td><td class="cell block-b">Block B (10:05-11:05)</td></tr><tr><td class="time">11:10–12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">12:15–12:40</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell block-c">Block C (11:10-1:10)</td><td class="cell block-c">Block C (11:10-1:10)</td></tr><tr><td class="time">12:45–1:20</td><td class="slot">L/A</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">1:25–2:25</td><td class="slot">4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell plan">Planning</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">2:30–3:30</td><td class="slot">5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell"></td><td class="cell"></td></tr></tbody></table></div></div>
+    </details>
 
     <div class="cols c2" style="margin-top:64px">
       <div>
@@ -479,17 +507,19 @@ footer .label { color: var(--lime); }
 <section id="badges">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-num">05 · Badges</div>
+      <div class="sec-num">05 · Badges<br>An example</div>
       <div>
         <h2>Graduation shifts from seat time to a passport.</h2>
         <p class="lede">The afternoon is not electives bolted onto a school day. It is where a large share of our graduation requirements live. A badge is earned by completing an experience and its one deliverable. Each badge stamps a credit on the student's passport, and the passport, not a transcript of seat hours, is the record of what a graduate has actually done.</p>
+        <p class="lede"><strong style="color:var(--ink)">What follows is an example</strong> of how the requirements could be built, not a final catalog. The point to notice is that choice lives inside the requirements, not only next to them.</p>
       </div>
     </div>
     <div class="passport">
-      <div><b>36</b><strong>slots over four years</strong><span>Three experiences per trimester, twelve trimesters</span></div>
-      <div><b>33</b><strong>required badges</strong><span>The structure guarantees breadth</span></div>
+      <div><b>36</b><strong>slots over four years, in this example</strong><span>Three experiences per trimester, twelve trimesters</span></div>
+      <div><b>33</b><strong>required badges</strong><span>Breadth is guaranteed, and for 18 of them the student chooses how to earn it</span></div>
       <div><b>3</b><strong>open slots</strong><span>Entirely the student's call</span></div>
     </div>
+    <div class="choice"><span class="mono">Choice within the requirements</span><p>Only <b>15 of the 36</b> are fixed for everyone. For <b>18</b> more the badge is required but the student picks how to earn it: which career fields, which art, which science, which way to move. <b>3</b> are fully open. So students are making real choices in <b>21 of 36</b> slots.</p></div>
     <div class="cols c3" style="gap:20px">
       <div class="tier"><span class="label"><span>No choice</span><span>15</span></span><h3>Everyone earns these.</h3><p class="small">The floor we promise every graduate.</p>
         <div class="chips"><span>Book Club ×4</span><span>Personal Fitness</span><span>Personal Finance 1 &amp; 2</span><span>Civic Engagement</span><span>Sexual Health</span><span>Engineering 1</span><span>History Research Paper</span><span>Career Exposure</span><span>College Knowledge</span><span>College Applications</span><span>Career Plans</span></div></div>
@@ -498,7 +528,7 @@ footer .label { color: var(--lime); }
       <div class="tier"><span class="label"><span>Total choice</span><span>3</span></span><h3>Wide open.</h3><p class="small">Repeat something you loved, try something new, or chase a bonus badge.</p>
         <div class="chips"><span>Foreign Language</span><span>Swimming</span><span>Poetry</span><span>Photography / Film</span><span>Enjoying Nature</span><span>Exploring NYC</span></div></div>
     </div>
-    <p class="small" style="margin-top:18px">The catalog is still notional. Names, capacities, and sections will shift as partners, faculty, and student demand lock in.</p>
+    <p class="small" style="margin-top:18px"><strong>This is an example, not the catalog.</strong> The badge names, counts, and menus are illustrative and will shift as partners, faculty, and student demand lock in.</p>
 
     <div class="cols c2" style="margin-top:72px; align-items:start">
       <div>
