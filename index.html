@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Same Mission, New Path · Comp Sci High School Redesign</title>
+<meta name="description" content="Comp Sci High's current thinking on redesigning high school for an AI-shaped economy: mornings for knowing, afternoons for doing, a pilot year in 2026–27, and the questions we're still wrestling with.">
+<meta property="og:title" content="Same Mission, New Path · Comp Sci High School Redesign">
+<meta property="og:description" content="Mornings for knowing. Afternoons for doing. A pilot year now, the full model in September 2027.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jost:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #fbfaf6; --ink: #131512; --forest: #0c3b22; --forest-soft: #11492b; --forest-deep: #082a18;
+  --lime: #a5d129; --lime-soft: #e6f2c0; --slate: #4f544c; --hairline: #e7e4da; --mist: #f2f0e9;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Jost", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --wrap: 1120px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+p { margin: 0 0 1em; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
+.mono { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+
+/* ---------- nav ---------- */
+.nav { position: sticky; top: 0; z-index: 60; background: rgba(251,250,246,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--hairline); }
+.nav-in { max-width: 1320px; margin: 0 auto; padding: 0 20px; height: 56px; display: flex; align-items: center; gap: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: none; }
+.brand img { height: 30px; width: auto; display: block; }
+.brand span { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); white-space: nowrap; }
+.nav-links { display: flex; gap: 2px; overflow-x: auto; flex: 1; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; color: var(--slate); padding: 8px 10px; white-space: nowrap; border-bottom: 2px solid transparent; }
+.nav-links a:hover, .nav-links a.on { color: var(--forest); border-bottom-color: var(--lime); }
+.qr-btn { flex: none; font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; background: var(--forest); color: var(--paper); border: 0; padding: 9px 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+.qr-btn:hover { background: var(--forest-soft); }
+.qr-btn i { width: 12px; height: 12px; display: inline-block; background:
+  linear-gradient(var(--lime),var(--lime)) 0 0/5px 5px no-repeat,
+  linear-gradient(var(--lime),var(--lime)) 100% 0/5px 5px no-repeat,
+  linear-gradient(var(--lime),var(--lime)) 0 100%/5px 5px no-repeat,
+  linear-gradient(var(--lime),var(--lime)) 100% 100%/3px 3px no-repeat; }
+
+/* ---------- hero ---------- */
+.hero { background: var(--forest); color: var(--paper); position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; background:
+  radial-gradient(900px 500px at 85% -10%, rgba(165,209,41,.16), transparent 60%),
+  repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 112px); pointer-events: none; }
+.hero .wrap { position: relative; padding-top: 92px; padding-bottom: 0; }
+.hero .mono { color: var(--lime); }
+.hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3.4rem, 10.5vw, 9rem); line-height: .92; letter-spacing: -.035em; margin: 26px 0 0; }
+.hero h1 em { font-style: italic; color: var(--lime); font-weight: 400; }
+.hero h1 span { display: block; }
+.hero-sub { max-width: 640px; font-size: 1.28rem; line-height: 1.5; margin: 38px 0 0; color: #e4eadc; }
+.hero-sub strong { color: #fff; font-weight: 500; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
+.btn { font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; padding: 14px 20px; border: 1px solid rgba(255,255,255,.35); color: var(--paper); background: transparent; cursor: pointer; }
+.btn.solid { background: var(--lime); color: var(--forest-deep); border-color: var(--lime); font-weight: 500; }
+.btn:hover { border-color: var(--lime); }
+.hero-strip { margin-top: 76px; border-top: 1px solid rgba(255,255,255,.18); display: grid; grid-template-columns: repeat(4, 1fr); }
+.hero-strip div { padding: 22px 20px 26px 0; }
+.hero-strip div + div { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.18); }
+.hero-strip b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; }
+.hero-strip span { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: #b9c9b4; }
+.rise { opacity: 0; transform: translateY(18px); animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+.rise.d1 { animation-delay: .08s } .rise.d2 { animation-delay: .2s } .rise.d3 { animation-delay: .34s } .rise.d4 { animation-delay: .48s } .rise.d5 { animation-delay: .62s }
+@keyframes rise { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .rise { animation: none; opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+
+/* ---------- sections ---------- */
+section { padding: 104px 0; border-bottom: 1px solid var(--hairline); }
+section.dark { background: var(--forest); color: var(--paper); border-bottom: 0; }
+section.mist { background: var(--mist); }
+.sec-head { display: grid; grid-template-columns: 150px 1fr; gap: 28px; margin-bottom: 52px; align-items: start; }
+.sec-num { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); padding-top: 14px; border-top: 2px solid var(--lime); }
+.dark .sec-num { color: var(--lime); }
+h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.9rem); line-height: 1.02; letter-spacing: -.025em; margin: 0; max-width: 17ch; }
+h2 em { font-style: italic; }
+.dark h2 em { color: var(--lime); }
+.lede { font-size: 1.22rem; line-height: 1.55; color: var(--slate); max-width: 62ch; margin-top: 22px; }
+.dark .lede { color: #dbe4d3; }
+h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; line-height: 1.2; letter-spacing: -.01em; margin: 0 0 .45em; }
+.indent { margin-left: 178px; }
+.cols { display: grid; gap: 40px; }
+.c2 { grid-template-columns: 1fr 1fr; } .c3 { grid-template-columns: repeat(3, 1fr); }
+.small { font-size: .95rem; color: var(--slate); }
+.dark .small { color: #c4d1bd; }
+.label { font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); margin-bottom: 10px; display: block; }
+.dark .label { color: var(--lime); }
+.rule-top { border-top: 1px solid var(--hairline); padding-top: 20px; }
+.dark .rule-top { border-top-color: rgba(255,255,255,.2); }
+
+/* who */
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--hairline); margin-bottom: 56px; }
+.stats div { padding: 22px 16px 22px 0; }
+.stats div + div { border-left: 1px solid var(--hairline); padding-left: 18px; }
+.stats b { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1; display: block; letter-spacing: -.02em; color: var(--forest); }
+.stats span { font-size: .86rem; color: var(--slate); line-height: 1.3; display: block; margin-top: 8px; }
+.mission { background: var(--forest); color: var(--paper); padding: 38px 40px; margin-top: 56px; display: grid; grid-template-columns: 150px 1fr; gap: 28px; }
+.mission p { font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.25; margin: 0; letter-spacing: -.01em; }
+.mission p em { color: var(--lime); }
+.mission .mono { color: var(--lime); padding-top: 8px; }
+
+/* why */
+.bigstat { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); padding: 40px 0; margin: 0 0 56px; }
+.bigstat b { font-family: var(--serif); font-weight: 400; font-size: clamp(5rem, 14vw, 11rem); line-height: .85; color: var(--lime); letter-spacing: -.04em; }
+.bigstat p { font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.85rem); line-height: 1.25; margin: 0 0 12px; }
+.bigstat a { color: var(--lime); }
+
+/* model split */
+.split { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 64px; }
+.split > div { padding: 44px 40px 46px; }
+.know { background: var(--forest); color: var(--paper); }
+.do { background: var(--lime); color: var(--forest-deep); }
+.split .mono { opacity: .85; }
+.split h3 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 400; font-style: italic; letter-spacing: -.03em; line-height: 1; margin: 14px 0 20px; }
+.split p { margin: 0; font-size: 1.08rem; }
+.split ul { margin: 18px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.split li { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid currentColor; opacity: .9; }
+
+/* schedule */
+.sched-scroll { overflow-x: auto; margin: 0 0 14px; }
+.sched { display: grid; grid-template-columns: 78px repeat(5, minmax(112px, 1fr)); gap: 4px; min-width: 680px; font-size: .9rem; }
+.sched > div { padding: 11px 12px; line-height: 1.25; }
+.sched .h { font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--slate); padding: 6px 12px; }
+.sched .t { font-family: var(--mono); font-size: .7rem; color: var(--slate); padding-left: 0; display: flex; align-items: center; }
+.sched .adv { background: #dfe6da; color: var(--forest); }
+.sched .cls { background: var(--forest); color: var(--paper); }
+.sched .lun { background: var(--mist); color: var(--slate); grid-column: span 4; text-align: center; }
+.sched .blk { background: var(--lime); color: var(--forest-deep); font-weight: 500; }
+.sched .pd { background: #fff; border: 1px dashed #c9c5b6; color: var(--slate); }
+.sched .tall { grid-row: span 3; display: flex; align-items: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: .86rem; color: var(--slate); }
+.legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+.note { border-left: 3px solid var(--lime); padding: 4px 0 4px 20px; margin: 44px 0 0; max-width: 70ch; }
+.note b { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; display: block; margin-bottom: 4px; }
+.must { list-style: none; margin: 0; padding: 0; }
+.must li { padding: 9px 0 9px 26px; border-bottom: 1px solid var(--hairline); position: relative; }
+.must li::before { content: ""; position: absolute; left: 0; top: 19px; width: 12px; height: 2px; background: var(--lime); }
+
+/* competencies */
+.comps { border-top: 1px solid var(--ink); }
+.comp { display: grid; grid-template-columns: 150px 1fr; gap: 28px; padding: 30px 0; border-bottom: 1px solid var(--hairline); }
+.comp .n { font-family: var(--serif); font-size: 3.4rem; line-height: .9; color: var(--forest); font-style: italic; }
+.comp p { color: var(--slate); max-width: 68ch; margin-bottom: .6em; }
+details summary { cursor: pointer; font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--forest); list-style: none; display: inline-block; padding: 4px 0; border-bottom: 1px solid var(--lime); }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: " +"; }
+details[open] summary::after { content: " −"; }
+details ul { margin: 14px 0 0; padding-left: 20px; color: var(--slate); font-size: .98rem; max-width: 70ch; }
+details li { margin-bottom: 5px; }
+
+/* badges */
+.passport { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--hairline); margin-bottom: 52px; }
+.passport div { padding: 24px 20px 24px 0; }
+.passport div + div { border-left: 1px solid var(--hairline); padding-left: 24px; }
+.passport b { font-family: var(--serif); font-weight: 400; font-size: clamp(3.4rem, 8vw, 6rem); line-height: .9; display: block; color: var(--forest); letter-spacing: -.03em; }
+.passport strong { display: block; margin-top: 10px; font-weight: 600; }
+.passport span { font-size: .92rem; color: var(--slate); }
+.tier { background: #fff; border: 1px solid var(--hairline); padding: 28px 26px 30px; }
+.tier .label { display: flex; justify-content: space-between; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.chips span { font-size: .84rem; padding: 4px 10px; background: var(--mist); border-radius: 99px; color: var(--ink); white-space: nowrap; }
+.dark .chips span { background: rgba(255,255,255,.1); color: var(--paper); }
+.chips span.go { background: var(--lime-soft); }
+.quote { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.3rem); line-height: 1.22; letter-spacing: -.015em; max-width: 26ch; margin: 0; }
+.quote em { color: var(--forest); }
+
+/* pilots */
+.strand { border-top: 1px solid rgba(255,255,255,.22); padding: 28px 0 8px; }
+.strand h3 { font-size: 1.7rem; font-weight: 400; }
+.strand .q { font-family: var(--serif); font-style: italic; font-size: 1.12rem; color: var(--lime); line-height: 1.35; margin-bottom: 14px; }
+.strand ul { list-style: none; padding: 0; margin: 0 0 14px; font-size: .96rem; }
+.strand li { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.1); display: flex; justify-content: space-between; gap: 12px; }
+.strand li span { font-family: var(--mono); font-size: .68rem; color: #b9c9b4; white-space: nowrap; padding-top: 4px; }
+.rounds { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 0 0 16px; }
+.round { background: #fff; border: 1px solid var(--hairline); padding: 16px 14px 18px; font-size: .88rem; color: var(--slate); line-height: 1.35; }
+.round b { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; color: var(--ink); display: block; }
+.round .mono { font-size: .62rem; display: block; margin: 2px 0 8px; }
+.round.now { background: var(--forest); color: #dbe4d3; border-color: var(--forest); }
+.round.now b { color: #fff; } .round.now .mono { color: var(--lime); }
+.signal { background: #fff; border: 1px solid var(--hairline); padding: 26px 26px 24px; display: flex; flex-direction: column; }
+.signal .fig { font-family: var(--serif); font-size: clamp(2.3rem, 4.4vw, 3.3rem); line-height: 1; color: var(--forest); letter-spacing: -.02em; margin: 6px 0 12px; }
+.signal .fig small { font-size: .45em; letter-spacing: 0; color: var(--slate); }
+.signal p { font-size: .98rem; color: var(--slate); margin: 0 0 10px; }
+.signal .so { margin-top: auto; font-size: .92rem; color: var(--ink); border-top: 1px solid var(--hairline); padding-top: 10px; }
+.asks { counter-reset: a; list-style: none; padding: 0; margin: 0; }
+.asks li { counter-increment: a; padding: 11px 0 11px 44px; border-bottom: 1px solid var(--hairline); position: relative; }
+.asks li::before { content: "0" counter(a); position: absolute; left: 0; top: 14px; font-family: var(--mono); font-size: .7rem; color: var(--forest); }
+
+/* AI */
+.ai-q { font-family: var(--serif); font-style: italic; font-size: clamp(2.4rem, 6.4vw, 5rem); line-height: 1; letter-spacing: -.03em; color: var(--forest); margin: 64px 0 14px; }
+
+/* questions */
+#questions { background: var(--forest-deep); }
+.bq { display: grid; grid-template-columns: 150px 1fr; gap: 28px; padding: 46px 0 44px; border-top: 1px solid rgba(255,255,255,.2); }
+.bq .n { font-family: var(--serif); font-style: italic; font-size: 5.4rem; line-height: .8; color: var(--lime); }
+.bq h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 18px; max-width: 22ch; }
+.bq p { color: #dbe4d3; max-width: 64ch; font-size: 1.1rem; }
+.bq .sub { list-style: none; padding: 0; margin: 18px 0 0; max-width: 64ch; }
+.bq .sub li { padding: 9px 0 9px 24px; border-top: 1px solid rgba(255,255,255,.12); color: #c4d1bd; position: relative; font-size: 1rem; }
+.bq .sub li::before { content: "?"; position: absolute; left: 0; font-family: var(--serif); font-style: italic; color: var(--lime); }
+.also { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; list-style: none; margin: 0; padding: 0; }
+.also li { padding: 14px 0; border-top: 1px solid rgba(255,255,255,.14); color: #dbe4d3; font-size: 1.02rem; }
+.trade { margin-top: 64px; background: var(--lime); color: var(--forest-deep); padding: 36px 40px; }
+.trade p { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.2; margin: 0; letter-spacing: -.015em; max-width: 30ch; }
+
+/* road */
+.road { border-left: 1px solid var(--ink); margin-left: 6px; }
+.stop { position: relative; padding: 0 0 34px 34px; display: grid; grid-template-columns: 170px 1fr; gap: 24px; }
+.stop::before { content: ""; position: absolute; left: -6px; top: 7px; width: 11px; height: 11px; background: var(--paper); border: 1px solid var(--ink); border-radius: 50%; }
+.stop.done::before { background: var(--ink); }
+.stop.now::before { background: var(--lime); border-color: var(--forest); box-shadow: 0 0 0 5px rgba(165,209,41,.3); }
+.stop.end::before { background: var(--forest); border-color: var(--forest); width: 15px; height: 15px; left: -8px; }
+.stop .when { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--forest); padding-top: 3px; }
+.stop .when i { font-style: normal; display: inline-block; background: var(--lime); color: var(--forest-deep); padding: 1px 7px; margin-top: 6px; }
+.stop p { color: var(--slate); margin: 0; max-width: 62ch; font-size: 1rem; }
+
+/* footer */
+footer { background: var(--forest); color: #c4d1bd; padding: 64px 0 80px; font-size: .95rem; }
+footer .cols { grid-template-columns: 1.2fr 1fr 1fr; }
+footer img { height: 44px; width: auto; margin-bottom: 18px; display: block; }
+footer a { color: var(--paper); text-decoration-color: var(--lime); text-underline-offset: 3px; }
+footer ul { list-style: none; margin: 0; padding: 0; }
+footer li { margin-bottom: 8px; }
+footer .label { color: var(--lime); }
+
+/* QR overlay */
+.qr { position: fixed; inset: 0; z-index: 100; background: var(--forest); color: var(--paper); display: none; align-items: center; justify-content: center; padding: 24px; cursor: pointer; }
+.qr.open { display: flex; }
+.qr-in { display: grid; grid-template-columns: auto minmax(0, 420px); gap: 64px; align-items: center; cursor: default; }
+.qr-code { background: #fff; padding: 22px; width: min(72vh, 46vw, 560px); }
+.qr-code img { width: 100%; height: auto; display: block; }
+.qr h2 { font-size: clamp(2.4rem, 5vw, 4.4rem); max-width: none; }
+.qr h2 em { color: var(--lime); }
+.qr .url { font-family: var(--mono); font-size: clamp(.8rem, 1.5vw, 1.05rem); color: var(--lime); margin: 26px 0 0; word-break: break-all; }
+.qr p.small { margin-top: 18px; }
+.qr-x { position: absolute; top: 20px; right: 22px; background: none; border: 1px solid rgba(255,255,255,.35); color: var(--paper); font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; }
+.fab { position: fixed; right: 18px; bottom: 18px; z-index: 55; width: 54px; height: 54px; border-radius: 50%; border: 0; background: var(--lime); color: var(--forest-deep); font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .08em; cursor: pointer; box-shadow: 0 6px 22px rgba(8,42,24,.3); }
+.fab:hover { transform: translateY(-2px); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  body { font-size: 17px; }
+  section { padding: 68px 0; }
+  .wrap { padding: 0 20px; }
+  .sec-head, .comp, .bq, .mission { grid-template-columns: 1fr; gap: 14px; }
+  .sec-num { display: inline-block; width: max-content; padding-right: 24px; }
+  .indent { margin-left: 0; }
+  .c2, .c3, .split, .also, footer .cols { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stats div { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--hairline); }
+  .stats div:first-child { grid-column: span 2; border-top: 0; }
+  .hero .wrap { padding-top: 56px; }
+  .hero-strip { grid-template-columns: 1fr 1fr; margin-top: 48px; }
+  .hero-strip div { padding: 16px 12px 16px 0 !important; border-left: 0 !important; border-top: 1px solid rgba(255,255,255,.18); }
+  .hero-strip div:nth-child(-n+2) { border-top: 0; }
+  .passport div { padding-right: 10px; } .passport div + div { padding-left: 12px; }
+  .bigstat { grid-template-columns: 1fr; gap: 12px; }
+  .rounds { grid-template-columns: 1fr 1fr; }
+  .stop { grid-template-columns: 1fr; gap: 4px; padding-left: 24px; }
+  .split > div, .mission, .trade { padding: 30px 24px; }
+  .brand span { display: none; }
+  .bq .n { font-size: 3.6rem; }
+  .qr-in { grid-template-columns: 1fr; gap: 24px; text-align: center; justify-items: center; }
+  .qr-code { width: min(80vw, 52vh); }
+}
+@media print { .nav, .fab, .qr { display: none !important; } section { padding: 36px 0; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><img src="assets/navbar-logo.webp" alt="Comp Sci High"><span>HS Redesign</span></a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#who">Who we are</a>
+      <a href="#why">Why</a>
+      <a href="#model">The model</a>
+      <a href="#competencies">Competencies</a>
+      <a href="#badges">Badges</a>
+      <a href="#pilots">Pilots</a>
+      <a href="#ai">AI</a>
+      <a href="#questions">Open questions</a>
+      <a href="#road">Road to 2027</a>
+    </nav>
+    <button class="qr-btn" type="button" data-qr aria-label="Show QR code for this page"><i></i>QR</button>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="wrap">
+    <div class="mono rise d1">Comp Sci High · The Bronx · High School Redesign</div>
+    <h1><span class="rise d2">Same mission.</span><span class="rise d3"><em>New path.</em></span></h1>
+    <p class="hero-sub rise d4"><strong>Every Comp Sci High student to economic freedom by 25.</strong> That has not changed. The economy our students are graduating into has, so the school day has to. This is our current thinking, shared while it is still in motion.</p>
+    <div class="hero-cta rise d4">
+      <a class="btn solid" href="#who">Start the walkthrough ↓</a>
+      <a class="btn" href="#questions">Jump to what we're wrestling with</a>
+      <button class="btn" type="button" data-qr>Show QR</button>
+    </div>
+    <div class="hero-strip rise d5">
+      <div><b>Mornings for knowing</b><span>5 core classes · 3× a week</span></div>
+      <div><b>Afternoons for doing</b><span>Experiences · one real deliverable each</span></div>
+      <div><b>Piloting now</b><span>2026–27 · with Transcend</span></div>
+      <div><b>Launching Sept 2027</b><span>Still in design · not yet deployed</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 01 WHO -->
+<section id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01 · Who we are</div>
+      <div>
+        <h2>One high school in the South Bronx, with one measurable goal.</h2>
+        <p class="lede">Comp Sci High (Urban Assembly Charter School for Computer Science) is a SUNY-authorized charter high school in Mott Haven. We opened in 2018 as New York City's first career and technical education charter school.</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div><b>~480</b><span>students in grades 9–12</span></div>
+      <div><b>95%</b><span>Black and Latino</span></div>
+      <div><b>86%</b><span>qualify for free or reduced-price lunch</span></div>
+      <div><b>22%</b><span>students with disabilities</span></div>
+      <div><b>14%</b><span>multilingual learners</span></div>
+    </div>
+    <div class="cols c3">
+      <div class="rule-top"><span class="label">Our footprint</span><p class="small">One high school and, as of this fall, <strong>CSH_Alt</strong>: an alternative program for about 30 over-age, under-credited young adults (roughly 17–21). It doubles as a testing ground for parts of the larger redesign. Our 6–8 middle school opens next fall.</p></div>
+      <div class="rule-top"><span class="label">Who is doing the work</span><p class="small">Mostly us. A small team of leaders (Executive Director, Managing Director of Schools, CS Department Chair) and about ten teachers is running every pilot inside a normal school year.</p></div>
+      <div class="rule-top"><span class="label">Who we are working with</span><p class="small">Transcend is our design partner for the pilot year, and we are one of several high schools in a small Design Commons testing similar bets in different ways.</p></div>
+    </div>
+    <div class="mission">
+      <div class="mono">The mission</div>
+      <p>Every student reaches <em>economic freedom by 25</em>: earning at least the national median household income by that age, whether the route runs through college, a credential, or a career.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 WHY -->
+<section id="why" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02 · Why</div>
+      <div>
+        <h2>The target is the same. <em>The route is different.</em></h2>
+        <p class="lede">The all-day academic model was built when knowledge itself was scarce and valuable. Knowledge is still the foundation. But in an AI-shaped economy, what students can build, demonstrate, and judge increasingly determines their options, and a day built entirely around absorbing content leaves little room to practice any of that.</p>
+      </div>
+    </div>
+    <div class="indent">
+      <div class="bigstat">
+        <b>70%</b>
+        <div>
+          <p>of K–12 learning objectives will need to be taught differently in an AI-shaped economy.</p>
+          <div class="small">Burning Glass Institute &amp; aiEDU, <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">Which Skills Matter Now?</a> (February 2026), an analysis of AI's impact on 1,000 workforce skills and 140 high school learning objectives.</div>
+        </div>
+      </div>
+      <div class="cols c3">
+        <div class="rule-top"><span class="label">The first rung is going</span><h3>Starter jobs are where AI is landing first.</h3><p class="small">Burning Glass, Harvard, and the Federal Reserve all find AI collapsing entry-level rungs. The old sequence (finish school, get a starter job, learn on the clock) is no longer reliable for our graduates.</p></div>
+        <div class="rule-top"><span class="label">What stays</span><h3>We are keeping the baby.</h3><p class="small">Core academics stay, taught by expert teachers, because reasoning without knowledge is impossible and our students still need to read, write, and do math at the level colleges expect. The same report finds automation-exposed skills demand deeper understanding, not less.</p></div>
+        <div class="rule-top"><span class="label">Why now</span><h3>Our students are already graduating into this.</h3><p class="small">A pilot year in 2026–27 lets us build the schoolwide model on evidence rather than on a leap of faith.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 MODEL -->
+<section id="model">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03 · The model</div>
+      <div>
+        <h2>The day splits in two.</h2>
+        <p class="lede">The morning protects the academic foundation. The afternoon is where students use it. The time we recover from compressing the core goes to real work, relationships, and reflection.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="know">
+        <div class="mono">Morning</div>
+        <h3>Knowing</h3>
+        <p>Five core classes, each meeting three times a week for an hour. That is about 150 fewer minutes of teacher-led instruction each week than today.</p>
+        <ul><li>English</li><li>Math</li><li>Science</li><li>History</li><li>Computer Science</li></ul>
+      </div>
+      <div class="do">
+        <div class="mono">Afternoon</div>
+        <h3>Doing</h3>
+        <p>Students choose experiences each trimester. Every experience ends in one concrete deliverable, graded pass/fail against a clear standard.</p>
+        <ul><li>Applied academics</li><li>Life skills</li><li>Career fields</li><li>Arts &amp; enrichment</li></ul>
+      </div>
+    </div>
+
+    <span class="label">The week · 2-2-3 with morning advisory</span>
+    <div class="sched-scroll">
+      <div class="sched">
+        <div class="h"></div><div class="h">Mon</div><div class="h">Tue</div><div class="h">Wed</div><div class="h">Thu</div><div class="h">Fri</div>
+        <div class="t">9:00</div><div class="adv">Advisory</div><div class="adv">Advisory</div><div class="adv">Advisory</div><div class="adv">Advisory</div><div class="adv">Advisory</div>
+        <div class="t">9:33</div><div class="cls">Class 1</div><div class="cls">Class 4</div><div class="cls">Class 2</div><div class="cls">Class 5</div><div class="cls">Class 3</div>
+        <div class="t">10:36</div><div class="cls">Class 2</div><div class="cls">Class 5</div><div class="cls">Class 3</div><div class="cls">Class 1</div><div class="cls">Class 4</div>
+        <div class="t">11:39</div><div class="cls">Class 3</div><div class="cls">Class 1</div><div class="cls">Class 4</div><div class="cls">Class 2</div><div class="cls">Class 5</div>
+        <div class="t">12:42</div><div class="lun">Lunch and open hours, rotating by grade</div><div class="pd tall">Staff meetings and professional development</div>
+        <div class="t">1:58</div><div class="blk">Block A</div><div class="blk">Block A</div><div class="blk">Block B</div><div class="blk">Block B</div>
+        <div class="t">3:11</div><div class="blk">Block C</div><div class="blk">Block C</div><div class="pd">Teacher planning</div><div class="blk">Block C</div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#dfe6da"></i>Daily advisory, run as one-on-one conferences</span>
+      <span><i style="background:var(--forest)"></i>Academic core</span>
+      <span><i style="background:var(--lime)"></i>Experience blocks (A and B meet twice a week, C three times)</span>
+    </div>
+
+    <div class="cols c2" style="margin-top:64px">
+      <div>
+        <span class="label">Adults work differently</span>
+        <h3>A Learning Lead and a Learning Coach.</h3>
+        <p class="small">In the morning a Learning Lead pulls small groups flagged by our platforms while a Learning Coach circulates. Daily morning advisory, run as one-on-one conferences, helps students make sense of their choices and their progress.</p>
+        <div class="note" style="margin-top:28px"><b>This is V1.</b><span class="small">Next year's schedule is a waypoint toward a fully dynamic one, where classes, experiences, and intervention happen at the same time across different spaces and groups. We are not ready for that yet.</span></div>
+      </div>
+      <div class="cols c2" style="gap:28px">
+        <div><span class="label">Classrooms must</span>
+          <ul class="must small"><li>Build strong foundational knowledge</li><li>Practice interpreting, evaluating, and arguing from evidence</li><li>Connect individual lessons to big ideas</li><li>Connect content to current issues in the field</li></ul></div>
+        <div><span class="label">Experiences must</span>
+          <ul class="must small"><li>Build community and connection</li><li>Promote agency</li><li>Help students explore what they enjoy</li><li>Build real skill, rigor, and depth</li><li>Make their relevance clear</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 COMPETENCIES -->
+<section id="competencies" class="mist">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04 · Competencies</div>
+      <div>
+        <h2>Five things every graduate must be able to show.</h2>
+        <p class="lede">These set the destination. Every one is a commitment for every graduate, not an aspiration for some.</p>
+      </div>
+    </div>
+    <div class="comps indent" style="margin-left:0">
+      <div class="comp"><div class="n">1</div><div>
+        <h3>Career Readiness</h3>
+        <p>Graduates enter the world of work with skills, habits, and reference points. Not only technical skill: enough time in real or workplace-like settings that they can say, "I have done something like this before."</p>
+        <details><summary>What it looks like</summary><ul><li>Communicates clearly in professional settings, orally and in writing</li><li>Collaborates with peers, supervisors, and clients, building a network of mentors along the way</li><li>Uses feedback to improve and meet clear standards</li><li>Shows professional habits: punctuality, preparation, communication, follow-through</li><li>Manages their own brand (resume, LinkedIn, mentors, relationships)</li><li>Develops significant knowledge, skill, and experience in at least one career field</li></ul></details>
+      </div></div>
+      <div class="comp"><div class="n">2</div><div>
+        <h3>Learning and Reasoning about the World</h3>
+        <p>Students need both knowledge and the ability to use it. Reasoning cannot happen without facts, concepts, and disciplinary knowledge, and knowledge matters most when students can apply it.</p>
+        <details><summary>What it looks like</summary><ul><li>Builds a strong foundation across math, science, history, literature, economics, civics, and technology, well enough to gain admission to and engage confidently in college</li><li>Draws on knowledge from different sources and classes to explain the world</li><li>Interprets and constructs clear, evidence-based explanations and arguments</li><li>Reads and accurately interprets text and other media</li></ul></details>
+      </div></div>
+      <div class="comp"><div class="n">3</div><div>
+        <h3>Agency, Problem Solving, and Perseverance</h3>
+        <p>Students should not leave school waiting for directions. They see learning as a tool for solving problems, take initiative, and keep working when the answer is not obvious.</p>
+        <details><summary>What it looks like</summary><ul><li>Takes initiative instead of waiting passively for instructions</li><li>Persists through difficulty, ambiguity, and setbacks</li><li>Breaks complex challenges into manageable steps</li><li>Learns new tools (including AI), resources, and even bureaucratic systems in service of real problems</li><li>Generates, tests, and revises solutions through iteration</li></ul></details>
+      </div></div>
+      <div class="comp"><div class="n">4</div><div>
+        <h3>Caring for Self and Others</h3>
+        <p>A healthy life takes more than academic or economic success. Graduates leave with the habits, knowledge, and relationships to care for their physical, emotional, and financial well-being.</p>
+        <details><summary>What it looks like</summary><ul><li>Recognizes, manages, and communicates emotional needs in healthy ways</li><li>Maintains habits that support physical health</li><li>Practices basic financial habits and decision-making for adult life</li><li>Builds and sustains respectful, supportive relationships</li><li>Belongs to, and contributes to, a community</li><li>Knows how to seek help and navigate common life systems</li></ul></details>
+      </div></div>
+      <div class="comp"><div class="n">5</div><div>
+        <h3>Exploring Identity and Purpose</h3>
+        <p>Nobody needs a final answer to "Who am I?" by eighteen. Students do need tools, language, and habits for exploring identity, joy, purpose, and motivation over time.</p>
+        <details><summary>What it looks like</summary><ul><li>Develops habits of reflection that continue beyond high school</li><li>Begins to articulate values, commitments, and sources of purpose</li><li>Explores what brings them joy: arts, music, travel, sports, hobbies, civic life</li><li>Explores how identity intersects with professional, economic, and social success</li></ul></details>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 BADGES -->
+<section id="badges">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05 · Badges</div>
+      <div>
+        <h2>Graduation shifts from seat time to a passport.</h2>
+        <p class="lede">The afternoon is not electives bolted onto a school day. It is where a large share of our graduation requirements live. A badge is earned by completing an experience and its one deliverable. Each badge stamps a credit on the student's passport, and the passport, not a transcript of seat hours, is the record of what a graduate has actually done.</p>
+      </div>
+    </div>
+    <div class="passport">
+      <div><b>36</b><strong>slots over four years</strong><span>Three experiences per trimester, twelve trimesters</span></div>
+      <div><b>33</b><strong>required badges</strong><span>The structure guarantees breadth</span></div>
+      <div><b>3</b><strong>open slots</strong><span>Entirely the student's call</span></div>
+    </div>
+    <div class="cols c3" style="gap:20px">
+      <div class="tier"><span class="label"><span>No choice</span><span>15</span></span><h3>Everyone earns these.</h3><p class="small">The floor we promise every graduate.</p>
+        <div class="chips"><span>Book Club ×4</span><span>Personal Fitness</span><span>Personal Finance 1 &amp; 2</span><span>Civic Engagement</span><span>Sexual Health</span><span>Engineering 1</span><span>History Research Paper</span><span>Career Exposure</span><span>College Knowledge</span><span>College Applications</span><span>Career Plans</span></div></div>
+      <div class="tier"><span class="label"><span>Some choice</span><span>18</span></span><h3>Required, but you pick the flavor.</h3><p class="small">The centerpiece is a career ladder: sample fields, then go deep in one.</p>
+        <div class="chips"><span class="go">Career Introduction ×4</span><span class="go">Career Deep Dive ×4</span><span>Arts ×4</span><span>Movement ×3</span><span>Science Experiment</span><span>Nutrition &amp; Self-Care</span><span>Leadership Deep Dive</span></div></div>
+      <div class="tier"><span class="label"><span>Total choice</span><span>3</span></span><h3>Wide open.</h3><p class="small">Repeat something you loved, try something new, or chase a bonus badge.</p>
+        <div class="chips"><span>Foreign Language</span><span>Swimming</span><span>Poetry</span><span>Photography / Film</span><span>Enjoying Nature</span><span>Exploring NYC</span></div></div>
+    </div>
+    <p class="small" style="margin-top:18px">The catalog is still notional. Names, capacities, and sections will shift as partners, faculty, and student demand lock in.</p>
+
+    <div class="cols c2" style="margin-top:72px; align-items:start">
+      <div>
+        <span class="label">The work has to be real</span>
+        <p class="quote">Does it move a student measurably closer to <em>a credential, a paycheck, or a real understanding of how a job or business works?</em></p>
+        <p class="small" style="margin-top:16px">That is the test for every outside partner. If not, it doesn't make the list.</p>
+      </div>
+      <div>
+        <span class="label">Anchor partnerships we are building</span>
+        <ul class="must small">
+          <li><strong>Skilled trades.</strong> Job shadows growing into weekly hosting in plumbing or HVAC</li>
+          <li><strong>Automotive.</strong> Hands-on weekly hosting at neighborhood shops</li>
+          <li><strong>Rocking the Boat.</strong> Boatbuilding, seamanship, environmental science</li>
+          <li><strong>Healthcare.</strong> CPR and First Aid for whole cohorts, then a pathway to CNA, EMT, or phlebotomy</li>
+          <li><strong>Small business.</strong> A real seat inside an owner-operated business: pricing, customers, payroll</li>
+          <li><strong>IT.</strong> Help-desk shadowing building toward CompTIA prep</li>
+          <li><strong>Swimming.</strong> A pool and a certified instructor, a trimester at a time</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 PILOTS -->
+<section id="pilots" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06 · Pilots</div>
+      <div>
+        <h2>A pilot year, <em>not a leap of faith.</em></h2>
+        <p class="lede">Before the model launches, we are testing its pieces with real students and current teachers. Each pilot is built to answer an honest question: does this work, for whom, and what would it take to scale? Each one ends in a decision to scale, adapt, or sunset.</p>
+      </div>
+    </div>
+    <div class="cols c3 indent" style="margin-left:0; gap:36px">
+      <div class="strand">
+        <span class="label">Strand 1</span><h3>Compress the Core</h3>
+        <div class="q">Can students learn well with less active teacher instruction, and can a platform carry part of the load?</div>
+        <ul><li>Flipped AP U.S. History<span>~30</span></li><li>Flipped AP Computer Science A<span>~30</span></li><li>AP Chemistry, daily independent study<span>~8</span></li><li>AP Calculus BC, daily independent study<span>3</span></li><li>CSH_Alt self-paced courses<span>~30</span></li></ul>
+        <p class="small">Evidence: unit and AP results against last year, a platform audit log, observation logs, weekly student surveys.</p>
+      </div>
+      <div class="strand">
+        <span class="label">Strand 2</span><h3>Learning in the World</h3>
+        <div class="q">What design makes an experience build agency and transferable skill, and what replaces grades?</div>
+        <ul><li>Engineering Design<span>~20</span></li><li>AP Biology inquiry labs<span>~10</span></li><li>Personal Finance module<span>~20</span></li><li>Journalism editorial board<span>~10</span></li><li>Book Club<span>~12</span></li><li>Off-site swim instruction<span>new</span></li></ul>
+        <p class="small">Evidence: observation logs, student and cross-teacher interviews, a design-quality checklist, the Leaps experience survey.</p>
+      </div>
+      <div class="strand">
+        <span class="label">Strand 3</span><h3>Advising as Metacognition</h3>
+        <div class="q">Which conference structures, data, and tools help students make sense of their learning and choose well?</div>
+        <ul><li>Conference-model advisory, two 9th-grade cohorts<span>~60</span></li><li>Daily goal-setting advisory in CSH_Alt<span>~30</span></li></ul>
+        <p class="small">Evidence: advisor reflection logs, conference observations, student surveys and interviews, usage of the student dashboard we built in-house.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learning">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06 · continued</div>
+      <div>
+        <h2>How we are learning, and what we have seen so far.</h2>
+        <p class="lede">With Transcend we run the pilots in rounds. Each round has a launch, a structured midpoint pause, and an end-of-round reflection, and one workbook tracks two things at once: what each pilot is teaching us, and how that is changing the core model.</p>
+      </div>
+    </div>
+    <div class="rounds">
+      <div class="round"><b>Round 0</b><span class="mono">Sep 9 – Oct 15</span>Early launch for the year-long courses and advisory.</div>
+      <div class="round now"><b>Round 1</b><span class="mono">Oct 19 – Dec 18 · we are here</span>Full portfolio live. Midpoint stepback Nov 17–18.</div>
+      <div class="round"><b>Round 2</b><span class="mono">Jan 11 – Mar 12</span>Results feed the first experience-design workshop.</div>
+      <div class="round"><b>Round 3</b><span class="mono">Mar 15 – May 7</span>AP readiness, deliverable quality, advisory interviews.</div>
+      <div class="round"><b>Round 4</b><span class="mono">May 10 – Jun 11</span>Synthesis. What changed in the model, what's next.</div>
+    </div>
+    <div class="cols c2" style="margin-top:56px; gap:56px; align-items:start">
+      <div>
+        <span class="label">Asked of every pilot, every round</span>
+        <ol class="asks">
+          <li>What are we trying to learn this round?</li>
+          <li>What does strong implementation look like, concretely?</li>
+          <li>What evidence will we collect?</li>
+          <li>Who is benefiting, and who isn't?</li>
+          <li>What is changing in the core model because of this?</li>
+        </ol>
+      </div>
+      <div>
+        <span class="label">Read at three levels</span>
+        <ul class="must">
+          <li><strong>Is the design sound?</strong></li>
+          <li><strong>Is it running as designed?</strong></li>
+          <li><strong>Is it working for students?</strong></li>
+        </ul>
+        <p class="small" style="margin-top:18px">Our own tripwire: if pilot learning has produced fewer than four real changes to the model by the end of Round 1, the system is not translating learning into change, and we pause to diagnose.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:80px">
+      <span class="label">Early signals · weeks, not semesters · small samples</span>
+      <div class="cols c3" style="gap:20px">
+        <div class="signal">
+          <span class="mono">AP Chemistry independent study</span>
+          <div class="fig">40 <small>hrs</small> → 17 <small>hrs</small></div>
+          <p>Roughly 40 hours of teacher correction to produce 17 hours of usable student content from AI-generated lessons: wrong visuals, prompts with no scaffolding.</p>
+          <div class="so">The platform cannot yet be the primary instructor at AP rigor without heavy expert editing.</div>
+        </div>
+        <div class="signal">
+          <span class="mono">Flipped and independent AP · student survey, week 2</span>
+          <div class="fig">Pacing, yes.</div>
+          <p>Students value the flexible pacing, and their sense of engagement and readiness for assessments is improving. Access to teacher support, confidence solving problems alone, and knowing where they stand remain concerns.</p>
+          <div class="so">The routines around the platform matter as much as the platform.</div>
+        </div>
+        <div class="signal">
+          <span class="mono">Afternoon experiences · student survey, baseline → week 2</span>
+          <div class="fig">+32 <small>pts iteration</small></div>
+          <p>At baseline, 70%+ felt good about relationships and collaboration, but under half reported problem solving or getting started on their own. Two weeks in: iteration +32 points, agency +23, belonging +17. Adult-life skills flat at 56%.</p>
+          <div class="so">Agency moves fast when the work is theirs. Relevance to adult life needs deliberate design.</div>
+        </div>
+      </div>
+      <div class="cols c2" style="margin-top:28px; gap:20px">
+        <div class="note" style="margin-top:0"><b>What we cannot tell you yet.</b><span class="small">Whether students in compressed courses learn as much. The unit exam and AP comparisons against last year are the evidence that matters most, and it is too early to have them.</span></div>
+        <div class="note" style="margin-top:0"><b>Where our pilots are thin.</b><span class="small">Every pilot is led by a subject-matter expert, and most test learning and agency in a classroom. Experiences that need partners, kitchens, or worksites are less tested, beyond our internship program. Swim has started and small-business partnerships are about to.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 AI -->
+<section id="ai" class="mist">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07 · The AI play</div>
+      <div>
+        <h2>AI has a role. We are testing which one.</h2>
+        <p class="lede">We do not take it as given that today's edtech AI adds value. Every tool is a pilot with a defined success metric and a scale, adapt, or sunset decision.</p>
+      </div>
+    </div>
+    <div class="cols c2 indent" style="gap:56px">
+      <div>
+        <span class="label">Where AI is load-bearing</span>
+        <h3>Complexity we can't manage by hand.</h3>
+        <p class="small">Tracking evidence across dozens of badges. Flagging which students need a small group tomorrow. Putting the right information in front of an advisor and a student at the right moment. Eventually, managing a dynamic schedule.</p>
+        <span class="label" style="margin-top:28px">What we are using now</span>
+        <ul class="must small">
+          <li><strong>Kira Learning.</strong> Flipped and self-paced AP content, and the CSH_Alt academic program</li>
+          <li><strong>Teach to One.</strong> Adaptive algebra and pre-algebra</li>
+          <li><strong>Quill.</strong> Sentence-level writing and reading intervention</li>
+          <li><strong>Victory XR.</strong> VR career exposure paired with real job shadows</li>
+          <li><strong>A student hub we built in-house.</strong> Powers advisory conferences</li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Where we are skeptical</span>
+        <h3>Can a platform carry new content without a content expert in the room?</h3>
+        <p class="small">Our flipped-classroom pilots ask that plainly, along with what it costs students when it does.</p>
+        <span class="label" style="margin-top:28px">What our students said</span>
+        <h3>Thoughtful, limited, and not at the expense of their own thinking.</h3>
+        <p class="small">Our journalism classes debated AI regulation in schools and society. Their position was clear: AI use should be designed so it does not stunt their thinking and creativity. Much of the afternoon (engineering design, lab science, book club, journalism) is built around work AI does not do for the student.</p>
+      </div>
+    </div>
+    <div class="indent">
+      <p class="ai-q">Is AI actually better than a book?</p>
+      <p class="lede" style="margin-top:0">The question we most want to work on with other schools. What evidence is anyone seeing that AI improves learning in the classroom, as opposed to handling scheduling, digesting data, and the back office?</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 QUESTIONS -->
+<section id="questions" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">08 · Open questions</div>
+      <div>
+        <h2>What we are <em>wrestling with.</em></h2>
+        <p class="lede">We do not have these answered. They are the conversations we most want to have.</p>
+      </div>
+    </div>
+
+    <div class="bq"><div class="n">1</div><div>
+      <h3>What will the labor economy be in seven years?</h3>
+      <p>We are designing a school for a job market nobody can describe with confidence. The freshmen in our pilots will be looking for their first real jobs in it.</p>
+      <ul class="sub">
+        <li>Which bets hold up across most versions of that future, and which only pay off if we guess right?</li>
+        <li>If the entry-level rung keeps thinning, what does a graduate need already in hand: credentials, relationships, a body of work?</li>
+        <li>How do we keep a school model adjustable when the target keeps moving?</li>
+      </ul>
+    </div></div>
+
+    <div class="bq"><div class="n">2</div><div>
+      <h3>What actual knowledge and skills let a student build "AI fluency" and use it well?</h3>
+      <p>Everyone agrees students need it. Fewer can say what it is made of.</p>
+      <ul class="sub">
+        <li>How much of it is the tool, and how much is the knowledge and judgment a student brings to the tool?</li>
+        <li>What does a student need to know to tell when the output is wrong?</li>
+        <li>What should we teach without AI so that students can use it effectively later?</li>
+      </ul>
+    </div></div>
+
+    <div class="bq"><div class="n">3</div><div>
+      <h3>How do we generate a wide variety of experiential reference points in high school?</h3>
+      <p>So that when students graduate, they already have experience related to, adjacent to, or resonant with the things they will have to do in the workplace. So they can say, "I have done something like this before."</p>
+      <ul class="sub">
+        <li>How wide is wide enough, and how deep does one experience have to go to count?</li>
+        <li>What can a school build inside its own walls, and what only a partner, a worksite, or a kitchen can provide?</li>
+        <li>How do we know a reference point transferred, rather than just happened?</li>
+      </ul>
+    </div></div>
+
+    <div style="border-top:1px solid rgba(255,255,255,.2); padding-top:40px; margin-top:8px">
+      <span class="label">Also on the table</span>
+      <ul class="also">
+        <li>Is AI actually better than a book?</li>
+        <li>What replaces grades in an afternoon experience, and how do we reliably capture growth in agency?</li>
+        <li>Which students thrive with independent learning, and what do the students who struggle need?</li>
+        <li>What does it take for a teacher to plan and lead an experience instead of a class?</li>
+        <li>How do we test experiences that depend on partners before we depend on them?</li>
+        <li>How do we get from a fixed V1 schedule to a truly dynamic one?</li>
+      </ul>
+    </div>
+
+    <div class="trade"><p>What are you seeing in your school? We would rather trade notes than present.</p></div>
+  </div>
+</section>
+
+<!-- 09 ROAD -->
+<section id="road">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">09 · Road to 2027</div>
+      <div>
+        <h2>The model does not launch all at once.</h2>
+        <p class="lede">Pilots run this year, staff build capability checkpoint by checkpoint, and the full design opens in September 2027. Dates will keep firming up as we go.</p>
+      </div>
+    </div>
+    <div class="road indent">
+      <div class="stop done"><div class="when">June 2026</div><div><h3>Orient</h3><p>All staff get a first look at the competencies. The pilot roster is confirmed and every pilot gets a defined success metric, so the year produces evidence, not anecdotes.</p></div></div>
+      <div class="stop done"><div class="when">August 2026</div><div><h3>Prepare the pilot year</h3><p>A full PD week on planning for the new design and AI in the classroom. Pilot teachers get their own intensive on experience structure, pass/fail deliverables, and evidence collection.</p></div></div>
+      <div class="stop now"><div class="when">November 2026<br><i>We are here</i></div><div><h3>Pilots live, first evidence</h3><p>The first pilot share-out puts early evidence and real student work in front of the whole staff, and leadership takes a preliminary read on which pilots scale.</p></div></div>
+      <div class="stop"><div class="when">February 2027</div><div><h3>From pilots to design</h3><p>Pilot results presented in full. The first experience designers workshop opens experience-building to every teacher, with pilot teachers co-facilitating.</p></div></div>
+      <div class="stop"><div class="when">April 2027</div><div><h3>Build and choose</h3><p>A protected design studio where teachers build their experiences. The catalog is published and students choose their first-trimester experiences at a family night. Year-one partner agreements signed.</p></div></div>
+      <div class="stop"><div class="when">June 2027</div><div><h3>Lock the year</h3><p>Final master schedule, staffing plan, and advising model. Lessons from the strongest pilots are folded into year-one experiences.</p></div></div>
+      <div class="stop"><div class="when">August 2027</div><div><h3>Launch institute</h3><p>Experience dry-runs, advisory launch, schedule walk-throughs. Ninth graders get an orientation and their badge passport.</p></div></div>
+      <div class="stop end" style="padding-bottom:0"><div class="when">September 2027</div><div><h3>The new model is live.</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img src="assets/footer-logo.webp" alt="Comp Sci High">
+        <p>Comp Sci High · Urban Assembly Charter School for Computer Science · Mott Haven, the Bronx.</p>
+        <p>A living draft, shared at the Innovation Exchange, November 6, 2026. The model is in design, not deployed. Expect it to change.</p>
+      </div>
+      <div>
+        <span class="label">Go deeper</span>
+        <ul>
+          <li><a href="https://dinoah1981.github.io/csh-sprint2/" target="_blank" rel="noopener">The full working design hub</a> (schedules considered, every badge, the rollout plan)</li>
+          <li><a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">Which Skills Matter Now?</a> Burning Glass Institute &amp; aiEDU</li>
+          <li><a href="https://www.compscihigh.org" target="_blank" rel="noopener">compscihigh.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Share this page</span>
+        <ul>
+          <li><a href="#qr" data-qr>Show the QR code</a> (or press Q)</li>
+          <li style="font-family:var(--mono); font-size:.78rem; word-break:break-all">dinoah1981.github.io/HSRedesign</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="fab" type="button" data-qr aria-label="Show QR code">QR</button>
+
+<div class="qr" id="qr-overlay" role="dialog" aria-modal="true" aria-label="QR code for this page">
+  <button class="qr-x" type="button" id="qr-close">Close · Esc</button>
+  <div class="qr-in" id="qr-in">
+    <div class="qr-code"><img src="assets/qr.svg" alt="QR code linking to dinoah1981.github.io/HSRedesign"></div>
+    <div>
+      <div class="mono" style="color:var(--lime)">Comp Sci High · HS Redesign</div>
+      <h2 style="margin-top:18px">Follow along. <em>Scan me.</em></h2>
+      <p class="url">dinoah1981.github.io/HSRedesign</p>
+      <p class="small">Same mission, new path: our current thinking on redesigning high school, and the questions we are still wrestling with.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var ov = document.getElementById('qr-overlay');
+  function openQR() { ov.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeQR() { ov.classList.remove('open'); document.body.style.overflow = ''; if (location.hash === '#qr') history.replaceState(null, '', location.pathname + location.search); }
+  function toggleQR() { ov.classList.contains('open') ? closeQR() : openQR(); }
+  document.querySelectorAll('[data-qr]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); toggleQR(); }); });
+  ov.addEventListener('click', function (e) { if (!document.getElementById('qr-in').contains(e.target)) closeQR(); });
+  if (location.hash === '#qr') openQR();
+  window.addEventListener('hashchange', function () { if (location.hash === '#qr') openQR(); });
+
+  var secs = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('#navlinks a'));
+  function current() {
+    var y = window.scrollY + 90, idx = -1;
+    secs.forEach(function (s, i) { if (s.offsetTop <= y) idx = i; });
+    return idx;
+  }
+  function mark() {
+    var i = current(), id = i >= 0 ? secs[i].id : '';
+    if (id === 'learning') id = 'pilots';
+    links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + id); });
+  }
+  window.addEventListener('scroll', mark, { passive: true }); mark();
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'q' || k === 'Q') { toggleQR(); return; }
+    if (k === 'Escape') { closeQR(); return; }
+    if (ov.classList.contains('open')) return;
+    if (k === 'ArrowRight' || k === 'ArrowLeft') {
+      var i = current(), n = k === 'ArrowRight' ? i + 1 : (window.scrollY + 90 - (i >= 0 ? secs[i].offsetTop : 0) > 200 ? i : i - 1);
+      if (n < 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      if (n >= secs.length) return;
+      secs[n].scrollIntoView({ behavior: 'smooth' });
+      e.preventDefault();
+    }
+  });
+})();
+</script>
+</body>
+</html>
